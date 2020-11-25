@@ -1,0 +1,244 @@
+/* D3 plot */
+    #beerData {
+        border-radius: 8px;
+    }
+  
+  .chart::before {
+    position: absolute;
+    top: 50px;
+    left: 300px;
+    z-index: -1;
+    display: block;
+    width: 400px;
+    height: 300px;
+    content: " ";
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+    opacity: 0.3;
+  }
+  
+  .tooltip {
+    position: absolute;
+    width: 135px;
+    height: 60px;
+    padding: 2px;
+    padding-top: 8px;
+    font: 12px sans-serif;
+    color: white;
+    text-align: center;
+    background: #551aaf;
+    border: 0;
+    border-radius: 10px;
+  }
+  
+  .axis-text {
+    font-family: sans-serif;
+    font-weight: bold;
+    fill: darkgrey;
+    text-anchor: middle;
+  }
+  
+
+
+  .active {
+    font-weight: bold;
+    fill: #000;
+    fill: darkgrey;
+    transition: fill 0.3s ease-out;
+    text-anchor: middle;
+  }
+  
+  .inactive {
+    font-weight: lighter;
+    fill: darkgrey;
+    transition: fill 0.3s ease-out;
+    text-anchor: middle;
+  }
+  
+  .inactive:hover {
+    fill: #e75480;
+    cursor: pointer;
+  }
+  
+
+/* Navbar CSS */
+    .navbar-brand {
+        padding: 0;
+    }
+
+
+/* Style the Nav Links */
+    .nav-link {
+        padding-top: 90px;
+        padding-bottom: 0;
+        height: 10px;
+        line-height: 10px;
+        /* padding-left: 20px;
+        padding-right: 20px; */
+        color: black;
+    }
+
+    .nav-link:hover {
+        color: #ffc229;
+    }
+
+    .active {
+        color: light-grey;
+    }
+
+/* End of Navbar CSS */
+
+
+.table {
+    font-size: .7rem;
+}
+
+
+.content {
+    text-align: center;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.header {
+    text-align: center;
+    padding-top:25px;
+}
+
+button {
+    margin:20px;
+    position: relative;
+    padding-left: 100px;
+}
+.caret {
+    position: absolute;
+    bottom: 1px;
+    right: 100px;
+    text-align: right;
+
+}
+
+/* Homepage CSS */
+
+    #button-row {
+        justify-content: center;
+    }
+
+    .btn {
+        color: black;
+        background-color: #f8f9fa;
+        border: dotted;
+        border-color: #ffc229
+    }
+
+    .btn:hover {
+        font-weight: bold;
+        background-color: #f8f9fa;
+        color: black;
+        border-color: #ffc229
+
+    }
+
+    .button-link {
+        color: rgb(58, 58, 58);
+        text-decoration: none;
+    }
+
+    .button-link:hover {
+        text-decoration: none;
+        color: black;
+    }
+
+/* Style all links */
+
+    .link {
+        color: navy;
+    }
+
+
+/* Recommendations Page CSS */
+    .filters {
+    padding-left: 0px;
+    }
+
+    .list-group-item {
+        border: none;
+    }
+
+    .d3Button {
+        padding-left: 0px;
+        }
+
+    #table-area {
+        padding-top:50px;
+        height: 500px;
+    }
+
+
+/* End of Recommendations Page CSS */
+
+
+
+
+/*  ########  Map Page CSS ########*/
+    #map {
+        height: 100%;
+        }
+
+    .map-container {
+        height: 500px;
+        padding: 0px 1rem 1rem 1rem;
+        padding: 0px 1vmin 1vmin 1vmin;
+    }
+
+    .map-frame {
+        height: 500px;
+        width: 100%;
+        outline: 1px solid black;
+    }
+
+/* ########   End of Map Page CSS   ########*/
+
+
+/* Bunny Animation */
+    .bunny-row {
+        width:200px;
+        height:200px;
+        content:url("../Assets/bunny-static6.png");
+    }
+
+    .bunny-row:hover {
+        width:200px;
+        height:200px;
+        content:url("../Assets/bunny-gif2.gif");
+        
+    }
+
+    .bunny-row-hidden {
+        width:10px;
+        height:10px;
+        content:url("../Assets/bunny-static6.png");
+    }
+
+    .bunny-row-hidden:hover {
+        width:100px;
+        height:100px;
+        content:url("../Assets/bunny-gif2.gif");
+        
+    }
+
+/* About Us Page CSS */
+    #meet-the-team {
+        background-color:rgba(245, 245, 245, 0.6);
+        padding-top: 20px;
+    }
+
+    #about-this-data {
+        padding-top: 20px;
+        background-color: rgba(245, 245, 245, 0.6);
+        text-align: left;
+    }
+
+/* End of About Us Page CSS */
+

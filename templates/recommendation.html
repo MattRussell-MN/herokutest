@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Brewery Hopper | Beer Recommendations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <!-- Import version 5 of D3 -->
+    <script src="https://d3js.org/d3.v5.js"></script>
+
+    <!-- Import resources for the multi range slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css"></script>
+
+    <!-- Add a favicon -->
+    <link rel="shortcut icon" href="../static/Assets/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../static/Assets/favicon.ico" type="image/x-icon">
+
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar-brand-center navbar-light bg-light">
+        <div>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="analysis.html">Beer Characteristics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="recommendation.html">Get Recommendations</a>
+                </li>
+                <a href="index.html" class="navbar-brand img-responsive">
+                    <img class="logo" src="../static/Assets/brewery-hopper-logo.png"></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="map.html">Find a Local Brewery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about-this-data.html">About this Data</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="row align-items-end" id="title-row" style="padding-top:40px;">
+        <div class="col-md-4">
+        </div>
+
+        <div class="col-md-5">
+            <h4 id="form-title">Explore 2,410+ US Craft Beers</h4>
+        </div>
+
+        <div class="col-md-3" style="float: right;">
+            <button type="button" class="btn btn-sm" id="visualization-button"
+                style="margin:0; background-color:lightgrey;">
+                <a href="beerDbD3.html" class="button-link">View Overall Patterns in IBU & ABV ⇨</a>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- body -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <aside class="filters">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form>
+                                <div class="form-group">
+
+                                    <ul class="list-group" id="filters">
+
+                                        <div class="form-section" id="searchByBeers">
+                                            <h5>Search by Beer</h5>
+
+                                            <li class="filter list-group-item">
+                                                <label for="date">Name of Beer</label>
+                                                <input class="form-check" type="text" placeholder="Name of Beer"
+                                                    id="beer_name">
+                                            </li>
+                                            <li class="filter list-group-item">
+                                                <label for="date">Style of Beer</label>
+                                                <input class="form-check" id="beer_style" type="text"
+                                                    placeholder="(Lager, Sour, etc)">
+                                            </li>
+                                        </div>
+
+                                        <li class="filter list-group-item">
+
+                                            <p>Select Max Bitterness (ibu):</p>
+                                            <div class="slidecontainer">
+                                                <input type="range" min="4" max="139" step="15" class="ibuslider"
+                                                    value=139 id="ibuRange">
+                                                <p><span id="selected-bitterness" value=""></span></p>
+                                            </div>
+                                        </li>
+
+                                        <li class="filter list-group-item">
+
+                                            <p>Select Max Alcohol Content (abv):</p>
+                                            <div class="slidecontainer">
+                                                <input type="range" min="0" max="0.15" step="0.015" class="abvSlider"
+                                                    value=0.15 id="abvRange">
+                                                <p><span id="selected-alcohol" value=""></span></p>
+                                            </div>
+                                        </li>
+
+                                </div>
+
+                                <div class="form-section" id="searchByBrews">
+
+                                    <h5>Search by Brewery</h5>
+                                    <li class="filter list-group-item">
+                                        <label for="date">Brewery</label>
+                                        <input class="form-check" type="text" placeholder="Brewery Name"
+                                            id="brewery_name">
+                                    </li>
+                                    <li class="filter list-group-item">
+                                        <label for="date">City</label>
+                                        <input class="form-check" type="text" placeholder="City" id="city">
+                                    </li>
+                                    <li class="filter list-group-item">
+                                        <label for="date">State</label>
+                                        <input class="form-check" type="text" placeholder="State" id="state">
+                                    </li>
+                                </div>
+                        </div>
+                        </ul>
+                    </div>
+                    <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+
+                        <span class="bunny-row-hidden"></span>
+                    </form>
+            </div>
+            </aside>
+            <!-- Table -->
+            <div class="col-md-8">
+                <div id="table-area" class="">
+                    <table id="recommendations" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="table-head">Beer ID</th>
+                                <th class="table-head">Beer Name</th>
+                                <th class="table-head">Beer Style</th>
+                                <th class="table-head">ABV</th>
+                                <th class="table-head">IBU</th>
+                                <th class="table-head">Ounces</th>
+                                <th class="table-head">Brewery ID</th>
+                                <th class="table-head">Brewery Name</th>
+                                <th class="table-head">City</th>
+                                <th class="table-head">State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Bootstrap JS -->
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+
+
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                crossorigin="anonymous"></script>
+
+            <!-- Recommendation.js -->
+            <script type="text/javascript" src="../static/js/recommendation.js"></script>
+
+</body>
+
+</html>
